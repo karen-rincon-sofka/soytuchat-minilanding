@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoyTuChat ahora es ZonaCreador</title>
+<meta name="description" content="SoyTuChat cambió de nombre a ZonaCreador. Misma plataforma, mismo equipo, nuevo dominio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B1325;
+    --bg-lowest: #060E1F;
+    --surface-low: #10192F;
+    --surface-high: #2D3448;
+    --text: #F0F2F5;
+    --text-muted: #A7AFC2;
+    --cyan: #00D1FF;
+    --violet: #8000FF;
+    --lime: #9BC400;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+    padding: 24px;
+  }
+
+  /* Atmospheric glows */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::before {
+    width: 520px;
+    height: 520px;
+    top: -180px;
+    left: -160px;
+    background: radial-gradient(circle, rgba(0, 209, 255, 0.22) 0%, rgba(0, 209, 255, 0) 70%);
+  }
+
+  body::after {
+    width: 560px;
+    height: 560px;
+    bottom: -220px;
+    right: -180px;
+    background: radial-gradient(circle, rgba(128, 0, 255, 0.22) 0%, rgba(128, 0, 255, 0) 70%);
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    background: rgba(45, 52, 72, 0.35);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 0.5rem;
+    padding: 48px 40px;
+    text-align: center;
+    box-shadow: 0 0 64px rgba(0, 209, 255, 0.07);
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 28px;
+    display: block;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 5vw, 2.35rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  h1 .old {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(167, 175, 194, 0.5);
+    font-weight: 700;
+  }
+
+  h1 .new {
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  p.body-copy {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  p.body-copy strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .cta {
+    display: inline-block;
+    width: 100%;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 0.5rem;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    box-shadow: 0 0 0 rgba(0, 209, 255, 0);
+    transition: box-shadow 0.25s ease, transform 0.15s ease;
+  }
+
+  .cta:hover {
+    box-shadow: 0 0 32px rgba(0, 209, 255, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .cta:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  .console {
+    margin-top: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0.9;
+  }
+
+  .console .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+    box-shadow: 0 0 8px var(--lime);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .fallback {
+    margin-top: 28px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .fallback code {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--lime);
+    background: var(--bg-lowest);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .console .dot { animation: none; }
+    .cta { transition: none; }
+  }
+
+  @media (max-width: 400px) {
+    .card { padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="card">
+    <img class="logo" src="https://zonacreador.com/logo/Logo_icon.svg" alt="Logo ZonaCreador" />
+
+    <p class="eyebrow">Cambio de dominio</p>
+
+    <h1><span class="old">SoyTuChat</span><br><span class="new">ahora es ZonaCreador</span></h1>
+
+    <p class="body-copy">
+      Somos la misma plataforma, el mismo equipo y tu misma cuenta.
+      Solo cambiamos de nombre y de casa. <strong>Guarda nuestro nuevo dominio.</strong>
+    </p>
+
+    <a href="https://zonacreador.com" class="cta" id="ctaButton">Ir a ZonaCreador</a>
+
+    <p class="console">
+      <span class="dot"></span>
+      <span id="countdownText">Redirigiendo en 8s</span>
+    </p>
+
+    <p class="fallback">
+      ¿No te redirige? Entra directo a <code>zonacreador.com</code>
+    </p>
+  </main>
+
+  <script>
+    const DESTINATION = "https://zonacreador.com";
+    const REDIRECT_SECONDS = 8;
+
+    // Limpia service workers y cachés viejas del dominio anterior,
+    // para que usuarios con caché de la SPA vieja no queden atascados.
+    function cleanupOldCache() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(reg => reg.unregister());
+        }).catch(() => {});
+      }
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => caches.delete(name));
+        }).catch(() => {});
+      }
+    }
+
+    function goToDestination() {
+      cleanupOldCache();
+      window.location.href = DESTINATION;
+    }
+
+    document.getElementById('ctaButton').addEventListener('click', function (e) {
+      e.preventDefault();
+      goToDestination();
+    });
+
+    let remaining = REDIRECT_SECONDS;
+    const countdownEl = document.getElementById('countdownText');
+
+    const timer = setInterval(() => {
+      remaining -= 1;
+      if (remaining <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = "Redirigiendo...";
+        goToDestination();
+      } else {
+        countdownEl.textContent = `Redirigiendo en ${remaining}s`;
+      }
+    }, 1000);
+
+    cleanupOldCache();
+  </script>
+
+</body>
+</html>
